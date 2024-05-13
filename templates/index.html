@@ -1,0 +1,173 @@
+<html>
+    <head>
+    
+        <style>
+            @import url(https://fonts.googleapis.com/css?family=Open+Sans:700,300);
+            body {
+                background: linear-gradient(to bottom, #ffffff, #e6e6e6);
+            }
+            
+.frame {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 400px;
+	height: 400px;
+	margin-top: -200px;
+	margin-left: -200px;
+	border-radius: 2px;
+	box-shadow: 4px 8px 16px 0 rgba(0, 0, 0, 0.1);
+	overflow: hidden;
+	background: linear-gradient(to top right, darkmagenta 0%, hotpink 100%);
+	color: #333;
+	font-family: "Open Sans", Helvetica, sans-serif;
+}
+
+.center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 300px;
+	height: 260px;
+	border-radius: 3px;
+	box-shadow: 8px 10px 15px 0 rgba(0, 0, 0, 0.2);
+	background: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	flex-direction: column;
+}
+
+.title {
+	width: 100%;
+	height: 30px;
+	border-bottom: 1px solid #999;
+	text-align: center;
+}
+
+h1 {
+	font-size: 16px;
+	font-weight: 300;
+	color: #666;
+}
+
+.dropzone {
+	width: 100px;
+	height: 80px;
+	border: 1px dashed #999;
+	border-radius: 3px;
+	text-align: center;
+}
+
+.upload-icon {
+	margin: 25px 2px 2px 2px;
+}
+
+.upload-input {
+	position: relative;
+	top: -62px;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+}
+
+.btn {
+	display: block;
+	width: 140px;
+	height: 40px;
+	background: darkmagenta;
+	color: #fff;
+	border-radius: 3px;
+	border: 0;
+	box-shadow: 0 3px 0 0 hotpink;
+	transition: all 0.3s ease-in-out;
+	font-size: 14px;
+}
+
+.btn:hover {
+	background: rebeccapurple;
+	box-shadow: 0 3px 0 0 deeppink;
+}
+
+</style>
+
+    </head>
+    <body>
+<center>
+
+<h1 style="font-size:100px">MU Algorithm</h1>
+
+    <div class="frame" style="border-radius:10px;">
+        <div class="center" style="border-radius:10px;">
+            <div class="title" style="border-radius:10px;">
+                <h1 style="border-radius:10px;">Drop file to upload</h1>
+            </div>
+    
+<form action="/summary" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <div class="dropzone" style="border-radius:10px;">
+                <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
+                <input type="file" class="upload-input" name="csv_file" accept=".csv" />
+
+            </div>
+            <br>
+    
+            <button type="submit" class="btn" name="uploadbutton">Upload file</button>
+        </form>
+
+        </div>
+    </div>
+   
+
+
+
+
+
+
+
+
+
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br>
+    
+    
+
+{% comment %} <form action="/summary" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="csv_file" accept=".csv">
+    <button type="submit">Upload</button>
+</form> {% endcomment %}
+
+   
+
+{% if orginal_dataset %} <SPAN>
+    
+<p>Plot data available</p>
+<h1 style="font-size:100px">Plot</h1>
+<img src="data:image/png;base64,{{ orginal_dataset }}" alt="Original Plot" style="width:600px;height:600px">
+
+<img src="data:image/png;base64,{{ smote_dataset }}" alt="Smote Plot" style="width:600px;height:600px"></SPAN>
+<img src="data:image/png;base64,{{ first_circle }}" alt="First_circle Plot"  style="width:600px;height:600px">
+
+<img src="data:image/png;base64,{{ filtered_data_by_first_circle }}" alt="filtered_data_by_first_circle"  style="width:600px;height:600px">
+
+<p> Number of Minority datapoints Deleted:{{minority_del_num}} </p><br>
+
+<img src="data:image/png;base64,{{ second_circle }}" alt="second_circle Plot"  style="width:600px;height:600px">
+
+<img src="data:image/png;base64,{{ filtered_data_by_second_circle }}" alt="filtered_data_by_second_circle" style="width:600px;height:600px">
+<p> Number of Majority datapoints Deleted:{{majority_del_num}} </p><br>
+
+<img src="data:image/png;base64,{{ smote_after_filtering }}" alt="smote_after_filtering Plot" style="width:600px;height:600px">
+
+{% else %}
+<p>No plot data available</p>
+{% endif %}
+
+
+    </center>
+    </body>
+
+</html>
